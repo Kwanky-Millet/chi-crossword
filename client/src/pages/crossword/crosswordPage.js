@@ -14,32 +14,43 @@ export default function CrosswordPage () {
 
     const crosswordGridRef = useRef(null);
 
-    const rawData = [
-        {
-          clue: "okay",
-          answer: "tomorrow",
-          col: 4,
-          row: 3,
-          orientation: "down",
-        },
-        {
-          clue: "not",
-          answer: "today",
-          col: 7,
-          row: 1,
-          orientation: "down",
-        },
-        {
-          clue: "fine",
-          answer: "yesterday",
-          col: 1,
-          row: 3,
-          orientation: "across",
+    let [rawData, setRawData] = useState([]);
+    // [
+    //     {
+    //       clue: "okay",
+    //       answer: "tomorrow",
+    //       col: 4,
+    //       row: 3,
+    //       orientation: "down",
+    //     },
+    //     {
+    //       clue: "not",
+    //       answer: "today",
+    //       col: 7,
+    //       row: 1,
+    //       orientation: "down",
+    //     },
+    //     {
+    //       clue: "fine",
+    //       answer: "yesterday",
+    //       col: 1,
+    //       row: 3,
+    //       orientation: "across",
+    //     }
+    //   ];
+
+      async function fetchRawData () {
+        const res = await fetch("http://localhost:8000/api/crossword/");
+        const data = await res.json();
+
+        if (res.status ===  200) {
+            setRawData(data);
         }
-      ];
+      }
 
     function fetchAndParseData () {
         // fetch here
+        fetchRawData();
 
         let counter = 1;
 
@@ -93,4 +104,4 @@ export default function CrosswordPage () {
             </div>
         </>
     );
-}
+}   

@@ -92,8 +92,18 @@ export default function EditCrossword () {
             })
         });
 
-        console.log(res);
         navigate('/crossword');
+    }
+
+    function truncateTable () {
+        const res = fetch("http://localhost:8000/api/crossword/", {
+            method: "DELETE",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: {}
+        });
     }
 
     const handleSubmit = (event) => {
@@ -122,7 +132,8 @@ export default function EditCrossword () {
         if (inputValid) {
             let layout = clg.generateLayout(layoutInput);
 
-            // truncate table here
+            truncateTable();
+
             Array(layout.result)[0].forEach((item) => {
                 postClue(item);
             })
