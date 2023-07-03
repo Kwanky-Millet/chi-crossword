@@ -1,0 +1,92 @@
+.edit-page-container {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.edit-page-title {
+    margin-top: 6em;
+    font-family: 'Open Sans';
+    font-weight: 400;
+    font-size: 3rem;
+}
+
+.edit-page-description {
+    margin-bottom: 4em;
+    font-family: 'Open Sans';
+    font-weight: 400;
+}
+
+.crossword-clue-card {
+    width: 90vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.crossword-clue-form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+}
+
+.word-hint-pair {
+    display: flex;
+    column-gap: 2rem;
+}
+
+.word, .hint {
+    height: 30px;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-radius: 10px;
+    border: 2px solid black;
+    font-family: 'Open Sans';
+    font-weight: 400;
+}
+
+.hint {
+    width: 40em;
+}
+
+.word:focus, .hint:focus {
+    outline: none;
+}
+
+.edit-page-error-message {
+    text-align: center;
+    font-family: 'Open Sans';
+    color: #F55D3E;
+}
+
+.submit-button {
+    width: 50%;
+    height: 40px;
+    align-self: center;
+    margin-bottom: 4em;
+
+    border-radius: 10px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-family: 'Open Sans';
+    cursor: pointer;
+    transition-duration: 150ms;
+}
+
+.submit-button:hover {
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+}
+
+.submit-button:focus {
+    outline: none;
+}
