@@ -4,7 +4,6 @@ import './crosswordPage.css';
 
 export default function CrosswordPage () {
 
-    // sample data for now
     let outputDataAcross = {};
     let outputDataDown = {};
     const [outputData,setOutputData] = useState({
@@ -14,44 +13,9 @@ export default function CrosswordPage () {
 
     const crosswordGridRef = useRef(null);
 
-    let [rawData, setRawData] = useState([]);
-    // [
-    //     {
-    //       clue: "okay",
-    //       answer: "tomorrow",
-    //       col: 4,
-    //       row: 3,
-    //       orientation: "down",
-    //     },
-    //     {
-    //       clue: "not",
-    //       answer: "today",
-    //       col: 7,
-    //       row: 1,
-    //       orientation: "down",
-    //     },
-    //     {
-    //       clue: "fine",
-    //       answer: "yesterday",
-    //       col: 1,
-    //       row: 3,
-    //       orientation: "across",
-    //     }
-    //   ];
+    let rawData = [];
 
-      async function fetchRawData () {
-        const res = await fetch("http://localhost:8000/api/crossword/");
-        const data = await res.json();
-
-        if (res.status ===  200) {
-            setRawData(data);
-        }
-      }
-
-    function fetchAndParseData () {
-        // fetch here
-        fetchRawData();
-
+    function parseData () {
         let counter = 1;
 
         rawData.forEach((currObj) => {
@@ -80,14 +44,28 @@ export default function CrosswordPage () {
         })
 
         console.log(outputData);
+        console.log('sa', rawData);
     }
+
+      function fetchRawData () {
+        const request = fetch("http://localhost:8000/api/crossword/");
+
+        request.then(res => {
+            res.json().then(data => {
+                rawData = data;
+                parseData();
+
+            });
+        });
+
+      }
 
     const onCorrect = (...values) => {
             console.log("fdsd");
     }
 
     useEffect(() => {
-        fetchAndParseData();
+        fetchRawData();
         crosswordGridRef.current.highlightBackground = 'rgb(0,255,0)'
     }, []);
 
