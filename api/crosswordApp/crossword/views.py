@@ -6,7 +6,7 @@ from rest_framework import status
 from .models import Crossword
 from .serializers import *
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'DELETE'])
 def crossword_list(request):
     if request.method == 'GET':
         data = Crossword.objects.all()
@@ -22,6 +22,10 @@ def crossword_list(request):
             return Response(status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        Crossword.objects.all().delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PUT', 'DELETE'])
 def crossword_detail(request, pk):

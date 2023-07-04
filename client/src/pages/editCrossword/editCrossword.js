@@ -95,19 +95,6 @@ export default function EditCrossword () {
         navigate('/crossword');
     }
 
-    function truncateTable () {
-        const request = fetch("http://localhost:8000/api/crossword/01",
-        {
-            method: "DELETE"
-        }).then(res => {
-            if (! res.ok) {
-                throw new Error("Unable to delete");
-            }
-
-            console.log(res);
-        }).catch(e => {console.log(e)});
-    }
-
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -134,11 +121,19 @@ export default function EditCrossword () {
         if (inputValid) {
             let layout = clg.generateLayout(layoutInput);
 
-            truncateTable();
+            const request = fetch("http://localhost:8000/api/crossword/",
+            {
+                method: "DELETE"
+            }).then(res => {
+                if (! res.ok) {
+                    throw new Error("Unable to delete");
+                } else {
+                    Array(layout.result)[0].forEach((item) => {
+                        postClue(item);
+                    });
+                }
+            }).catch(e => {console.log(e)});
 
-            Array(layout.result)[0].forEach((item) => {
-                postClue(item);
-            })
         }
 
     }
